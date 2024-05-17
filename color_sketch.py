@@ -99,7 +99,7 @@ def display_colors(main_color, close_colors, far_colors, same_tone_colors):
         cols[i % 2].markdown(f"<div style='background-color:{color}; width:60px; height:60px;'></div>{color}", unsafe_allow_html=True)
 
 # Streamlitアプリの構築
-st.title("カラーパレット")
+st.title("カラースケッチ")
 
 # ユーザー入力を受け取る
 hex_color = st.text_input("Enter (#e5ccab):", "#e5ccab")
