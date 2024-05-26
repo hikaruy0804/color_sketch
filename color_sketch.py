@@ -16,11 +16,20 @@ def hex_to_rgb(hex_color):
 def adjust_color_variation(hex_color, lightness_adjust=0, saturation_adjust=0, hue_adjust=0):
     r, g, b = hex_to_rgb(hex_color)
     h, s, v = rgb_to_hsv(r, g, b)
-    h = (h + hue_adjust) % 1.0
-    s = max(0, min(1, s + saturation_adjust))
-    v = max(0, min(0.9, v + lightness_adjust))  # 明度の上限を0.9に設定
+    h = (h + hue_adjust) % 1.0  # 色相の調整は1で循環
+    s = max(0, min(1, s + saturation_adjust))  # 彩度を0から1の範囲で調整
+    v = max(0, min(1, v + lightness_adjust))  # 明度を0から1の範囲で調整、特に低めに設定して白を避ける
     new_r, new_g, new_b = hsv_to_rgb(h, s, v)
     return '#{:02x}{:02x}{:02x}'.format(new_r, new_g, new_b)
+
+# 修正された色の調整値
+adjustments = [
+    # 明度を下げ、彩度を増やす調整を試す
+    (-0.1, 0.2, 0.1),  # 明度をやや下げ、彩度と色相を上げる
+    (-0.2, 0.3, 0.2),  # 明度を更に下げ、彩度と色相をより強く上げる
+    (0.05, 0.15, -0.05),  # 明度をわずかに上げつつ、彩度を増やし色相を少し変更
+    (0, 0.25, 0.1)  # 明度は変えず、彩度を大幅に増やし、色相を少し変更
+]
 
 def generate_color_variations(hex_color):
     close_variations = []
