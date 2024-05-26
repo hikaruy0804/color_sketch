@@ -56,12 +56,19 @@ def generate_color_variations(hex_color):
 
     return close_variations, far_variations, same_tone_variations
 
-def display_colors(main_color, variations):
-    st.markdown(f"### {main_color}")
-    for color in variations:
-        cols = st.columns(4)
-        for i, col in enumerate(color):
-            cols[i].markdown(f"<div style='background-color:{col}; width:60px; height:60px;'></div>{col}", unsafe_allow_html=True)
+def display_colors(title, colors):
+    st.markdown(f"### {title}")
+    cols_per_row = 4
+    rows = (len(colors) + cols_per_row - 1) // cols_per_row  # 必要な行数を計算
+
+    for i in range(rows):
+        cols = st.columns(cols_per_row)
+        for j in range(cols_per_row):
+            index = i * cols_per_row + j
+            if index < len(colors):
+                color = colors[index]
+                cols[j].markdown(f"<div style='background-color:{color}; width:60px; height:60px;'></div>{color}", unsafe_allow_html=True)
+
 
 # アプリの構築
 st.title("カラースケッチ")
