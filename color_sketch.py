@@ -29,8 +29,7 @@ def generate_color_variations(hex_color):
             (0.5, -0.5, 0.4), (0.5, 0.5, -0.4), (-0.5, 0.5, 0.4), (-0.5, -0.5, -0.4)
         ],
         'same_tone': [
-            (random.uniform(0.1, 0.2), 0, 0), (random.uniform(-0.2, -0.1), 0, 0),
-            (random.uniform(0.2, 0.3), 0, 0), (random.uniform(-0.3, -0.2), 0, 0)
+            (0.2, 0, 0), (0.4, 0, 0), (0.6, 0, 0), (0.8, 0, 0)
         ]
     }
     variations = {key: [generate_new_color(hex_color, *adjust) for adjust in adjustments[key]] for key in adjustments}
