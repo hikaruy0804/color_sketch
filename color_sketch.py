@@ -44,14 +44,12 @@ def generate_color_variations(hex_color):
     close_adjustments = [(0.05, 0.05, 0.01), (-0.05, -0.05, -0.01), (0.1, -0.05, 0.02), (-0.1, 0.05, -0.02)]
     far_adjustments = [(0.4, -0.4, 0.5), (-0.4, 0.4, -0.5), (0.6, 0.6, 0.3), (-0.6, -0.6, -0.3)]
     same_tone_adjustments = [(0, 0.2, 0.1), (0, -0.2, -0.1), (0, 0.1, 0.2), (0, -0.1, -0.2)]
-    
     for adjustments in close_adjustments:
-        close_variations.append(adjust_color_variation(hex_color, adjustments, used_colors))
+        close_variations.append(adjust_color_variation(hex_color, *adjustments, used_colors))
     for adjustments in far_adjustments:
-        far_variations.append(adjust_color_variation(hex_color, adjustments, used_colors))
+        far_variations.append(adjust_color_variation(hex_color, *adjustments, used_colors))
     for adjustments in same_tone_adjustments:
-        same_tone_variations.append(adjust_color_variation(hex_color, adjustments, used_colors))
-
+        same_tone_variations.append(adjust_color_variation(hex_color, *adjustments, used_colors))
     return close_variations, far_variations, same_tone_variations
 
 def display_colors(title, colors):
