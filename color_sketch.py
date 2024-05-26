@@ -18,7 +18,7 @@ def adjust_color_variation(hex_color, lightness_adjust=0, saturation_adjust=0, h
     h, s, v = rgb_to_hsv(r, g, b)
     h = (h + hue_adjust) % 1.0
     s = max(0, min(1, s + saturation_adjust))
-    v = max(0, min(1, v + lightness_adjust))  # 明度の調整を制御
+    v = max(0, min(0.9, v + lightness_adjust))  # 明度の上限を0.9に設定
     new_r, new_g, new_b = hsv_to_rgb(h, s, v)
     return '#{:02x}{:02x}{:02x}'.format(new_r, new_g, new_b)
 
