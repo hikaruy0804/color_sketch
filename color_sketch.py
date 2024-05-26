@@ -29,9 +29,11 @@ def adjust_color_variation(hex_color, adjustments, used_colors):
 def generate_new_color(hex_color, lightness_adjust, saturation_adjust, hue_adjust):
     r, g, b = hex_to_rgb(hex_color)
     h, s, v = rgb_to_hsv(r, g, b)
-    h = (h + hue_adjust) % 1.0
-    s = max(0, min(1, s + saturation_adjust))
-    # 明度の範囲を0.1から0.9に制限して白と黒を除外
+    # 色相のランダムな調整を大きくして多様性を持たせる
+    h = (h + hue_adjust + random.uniform(-0.2, 0.2)) % 1.0
+    # 彩度を0.2以上保つことで灰色を避ける
+    s = max(0.2, min(1, s + saturation_adjust + random.uniform(-0.1, 0.1)))
+    # 明度の調整
     v = max(0.1, min(0.9, v + lightness_adjust))
     new_r, new_g, new_b = hsv_to_rgb(h, s, v)
     return '#{:02x}{:02x}{:02x}'.format(new_r, new_g, new_b)
