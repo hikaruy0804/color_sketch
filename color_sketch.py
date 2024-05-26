@@ -23,17 +23,15 @@ def generate_new_color(hex_color, hue_adjust, saturation_adjust, lightness_adjus
 def generate_color_variations(hex_color):
     adjustments = {
         'similar_tone': [
-            (random.uniform(-0.1, 0.1), random.uniform(-0.2, 0.2), random.uniform(-0.1, 0.1)) for _ in range(5)
+            (random.uniform(-0.05, 0.05), random.uniform(-0.2, 0.2), random.uniform(-0.2, 0.2)) for _ in range(5)
         ],
         'contrast_tone': [
-            (random.uniform(0.4, 0.6), random.uniform(-0.4, 0.4), random.uniform(0.4, 0.6)),
-            (random.uniform(-0.6, -0.4), random.uniform(0.4, 0.6), random.uniform(-0.6, -0.4)),
-            (random.uniform(0.2, 0.4), random.uniform(0.2, 0.4), random.uniform(0.2, 0.4)),
-            (random.uniform(-0.4, -0.2), random.uniform(-0.4, -0.2), random.uniform(-0.4, -0.2)),
-            (random.uniform(0.6, 0.8), random.uniform(-0.6, -0.4), random.uniform(0.6, 0.8))
+            (0.5, -0.5, 0.4), (0.5, 0.5, -0.4), (-0.5, 0.5, 0.4), (-0.5, -0.5, -0.4), (0.3, -0.3, 0.5),
+            (random.uniform(0.4, 0.6), random.uniform(-0.6, -0.4), random.uniform(0.3, 0.5)),
+            (random.uniform(-0.6, -0.4), random.uniform(0.4, 0.6), random.uniform(-0.5, -0.3))
         ],
         'same_tone': [
-            (0, random.uniform(-0.2, 0.2), random.uniform(-0.2, 0.2)) for _ in range(5)
+            (0, random.uniform(-0.1, 0.1), random.uniform(-0.1, 0.1)) for _ in range(5)
         ]
     }
     variations = {key: [generate_new_color(hex_color, *adjust) for adjust in adjustments[key]] for key in adjustments}
