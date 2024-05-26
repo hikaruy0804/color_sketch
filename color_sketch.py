@@ -18,7 +18,6 @@ def adjust_color_variation(hex_color, adjustments, used_colors):
     new_color = hex_color
     attempts = 0
     while new_color in used_colors and attempts < 10:
-        # ランダムな調整を追加して重複を避ける
         lightness_adjust = adjustments[0] + random.uniform(-0.05, 0.05)
         saturation_adjust = adjustments[1] + random.uniform(-0.05, 0.05)
         hue_adjust = adjustments[2] + random.uniform(-0.05, 0.05)
@@ -32,7 +31,8 @@ def generate_new_color(hex_color, lightness_adjust, saturation_adjust, hue_adjus
     h, s, v = rgb_to_hsv(r, g, b)
     h = (h + hue_adjust) % 1.0
     s = max(0, min(1, s + saturation_adjust))
-    v = max(0, min(1, v + lightness_adjust))
+    # 明度の範囲を0.1から0.9に制限して白と黒を除外
+    v = max(0.1, min(0.9, v + lightness_adjust))
     new_r, new_g, new_b = hsv_to_rgb(h, s, v)
     return '#{:02x}{:02x}{:02x}'.format(new_r, new_g, new_b)
 
