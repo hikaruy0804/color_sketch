@@ -3,14 +3,14 @@ import colorsys
 import random
 
 def rgb_to_hsv(r, g, b):
-    return colorsys.rgb_to_hsv(r/255.0, g/255.0, b/255.0)
+    return colorsys.rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)
 
 def hsv_to_rgb(h, s, v):
     return [int(x * 255.0) for x in colorsys.hsv_to_rgb(h, s, v)]
 
 def hex_to_rgb(hex_color):
     hex_color = hex_color.lstrip('#')
-    return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+    return tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4))
 
 def generate_new_color(hex_color, hue_adjust, saturation_adjust, lightness_adjust):
     r, g, b = hex_to_rgb(hex_color)
@@ -26,12 +26,12 @@ def generate_color_variations(hex_color):
             (random.uniform(-0.1, 0.1), random.uniform(-0.2, 0.2), random.uniform(-0.1, 0.1)) for _ in range(4)
         ],
         'lightness_variation': [
-            (0, 0, random.uniform(0.5, 0.8)), (0, 0, random.uniform(-0.8, -0.5)),
-            (0, 0, random.uniform(0.2, 0.5)), (0, 0, random.uniform(-0.5, -0.2))
+            (0, 0, random.uniform(0.4, 0.8)), (0, 0, random.uniform(-0.8, -0.4)),
+            (0, 0, random.uniform(0.2, 0.6)), (0, 0, random.uniform(-0.6, -0.2))
         ],
         'saturation_variation': [
-            (0, random.uniform(0.5, 0.8), 0), (0, random.uniform(-0.8, -0.5), 0),
-            (0, random.uniform(0.2, 0.5), 0), (0, random.uniform(-0.5, -0.2), 0)
+            (0, random.uniform(0.4, 0.8), 0), (0, random.uniform(-0.8, -0.4), 0),
+            (0, random.uniform(0.2, 0.6), 0), (0, random.uniform(-0.6, -0.2), 0)
         ],
         'same_tone': [
             (random.uniform(0.1, 0.2), 0, 0), (random.uniform(0.2, 0.3), 0, 0),
