@@ -28,13 +28,20 @@ def generate_color_variations(hex_color, num_variations=5):
         'contrast_tone': [],
         'same_tone': []
     }
+    # 色相の調整をより顕著に
+    hue_shifts = np.linspace(-0.1, 0.1, num_variations)
+    # 彩度と明度の調整も大きく
+    saturation_shifts = np.linspace(-0.3, 0.3, num_variations)
+    lightness_shifts = np.linspace(-0.3, 0.3, num_variations)
+    random.shuffle(hue_shifts)
+    random.shuffle(saturation_shifts)
+    random.shuffle(lightness_shifts)
+
     for i in range(num_variations):
-        hue_shift = random.uniform(-0.1, 0.1)
-        sat_shift = random.uniform(-0.2, 0.2)
-        val_shift = random.uniform(-0.2, 0.2)
-        variations['same_tone'].append(generate_new_color(hex_color, 0, sat_shift, val_shift))
-        variations['similar_tone'].append(generate_new_color(hex_color, hue_shift, sat_shift, val_shift))
-        variations['contrast_tone'].append(generate_new_color(hex_color, hue_shift + 0.5, -sat_shift, val_shift))
+        variations['same_tone'].append(generate_new_color(hex_color, 0, saturation_shifts[i], lightness_shifts[i]))
+        variations['similar_tone'].append(generate_new_color(hex_color, hue_shifts[i], saturation_shifts[i], lightness_shifts[i]))
+        contrast_hue_shift = (hue_shifts[i] + 0.5) % 1.0
+        variations['contrast_tone'].append(generate_new_color(hex_color, contrast_hue_shift, -saturation_shifts[i], lightness_shifts[i]))
 
     return variations
 
@@ -46,7 +53,7 @@ def display_colors(title, colors):
 
 # アプリの構築
 st.title("カラースケッチ")
-hex_color = st.text_input("カラーコードを入力 (#e5ccab):", "#e5ccab")
+hex_color = st.text_input("カラーコードを入力 (#e5ccab):", "#625651")
 if hex_color:
     try:
         if len(hex_color) != 7 or not all(c in '0123456789abcdefABCDEF' for c in hex_color[1:]):
