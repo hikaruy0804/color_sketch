@@ -26,12 +26,12 @@ def generate_color_variations(hex_color):
             (random.uniform(-0.1, 0.1), random.uniform(-0.2, 0.2), random.uniform(-0.1, 0.1)) for _ in range(4)
         ],
         'lightness_variation': [
-            (0, 0, random.uniform(0.4, 0.8)), (0, 0, random.uniform(-0.8, -0.4)),
-            (0, 0, random.uniform(0.2, 0.6)), (0, 0, random.uniform(-0.6, -0.2))
+            (0, 0, random.uniform(0.5, 0.8)), (0, 0, random.uniform(-0.8, -0.5)),
+            (0, 0, random.uniform(0.2, 0.5)), (0, 0, random.uniform(-0.5, -0.2))
         ],
         'saturation_variation': [
-            (0, random.uniform(0.4, 0.8), 0), (0, random.uniform(-0.8, -0.4), 0),
-            (0, random.uniform(0.2, 0.6), 0), (0, random.uniform(-0.6, -0.2), 0)
+            (0, random.uniform(0.5, 0.8), 0), (0, random.uniform(-0.8, -0.5), 0),
+            (0, random.uniform(0.2, 0.5), 0), (0, random.uniform(-0.5, -0.2), 0)
         ],
         'same_tone': [
             (random.uniform(0.1, 0.2), 0, 0), (random.uniform(0.2, 0.3), 0, 0),
