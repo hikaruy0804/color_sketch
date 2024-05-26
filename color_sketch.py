@@ -26,10 +26,14 @@ def generate_color_variations(hex_color):
             (random.uniform(-0.05, 0.05), random.uniform(-0.2, 0.2), random.uniform(-0.2, 0.2)) for _ in range(4)
         ],
         'contrast_tone': [
-            (0.5, -0.5, 0.4), (0.5, 0.5, -0.4), (-0.5, 0.5, 0.4), (-0.5, -0.5, -0.4)
+            (0.5, random.uniform(-0.5, 0.5), random.uniform(-0.5, 0.5)),
+            (-0.5, random.uniform(-0.5, 0.5), random.uniform(-0.5, 0.5)),
+            (0.75, random.uniform(-0.5, 0.5), random.uniform(-0.5, 0.5)),
+            (-0.75, random.uniform(-0.5, 0.5), random.uniform(-0.5, 0.5))
         ],
         'same_tone': [
-            (0.2, 0, 0), (0.4, 0, 0), (0.6, 0, 0), (0.8, 0, 0)
+            (random.uniform(0.1, 0.2), 0, 0), (random.uniform(0.2, 0.3), 0, 0),
+            (random.uniform(0.3, 0.4), 0, 0), (random.uniform(0.4, 0.5), 0, 0)
         ]
     }
     variations = {key: [generate_new_color(hex_color, *adjust) for adjust in adjustments[key]] for key in adjustments}
