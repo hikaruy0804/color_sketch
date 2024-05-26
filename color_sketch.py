@@ -26,10 +26,8 @@ def generate_color_variations(hex_color):
             (random.uniform(-0.1, 0.1), random.uniform(-0.2, 0.2), random.uniform(-0.1, 0.1)) for _ in range(4)
         ],
         'contrast_tone': [
-            (0, 0, random.uniform(-0.5, -0.3)),
-            (0, 0, random.uniform(0.3, 0.5)),
-            (0, 0, random.uniform(-0.7, -0.5)),
-            (0, 0, random.uniform(0.5, 0.7))
+            (0, 0, random.uniform(0.3, 0.5)), (0, 0, random.uniform(-0.5, -0.3)),
+            (0, 0, random.uniform(0.5, 0.7)), (0, 0, random.uniform(-0.7, -0.5))
         ],
         'same_tone': [
             (random.uniform(0.1, 0.2), 0, 0), (random.uniform(0.2, 0.3), 0, 0),
@@ -56,6 +54,6 @@ if hex_color:
         display_colors("メインカラー", [hex_color])
         display_colors("同一トーン配色", variations['same_tone'])
         display_colors("類似トーン配色", variations['similar_tone'])
-        display_colors("対照トーン配色", variations['contrast_tone'])
+        display_colors("明度違い配色", variations['contrast_tone'])
     except ValueError as e:
         st.error(str(e))
