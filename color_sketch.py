@@ -23,13 +23,13 @@ def generate_new_color(hex_color, hue_adjust, saturation_adjust, lightness_adjus
 def generate_color_variations(hex_color):
     adjustments = {
         'similar_tone': [
-            (random.uniform(-0.05, 0.05), random.uniform(-0.3, 0.3), random.uniform(-0.2, 0.2)) for _ in range(4)
+            (random.uniform(-0.1, 0.1), random.uniform(-0.2, 0.2), random.uniform(-0.1, 0.1)) for _ in range(4)
         ],
         'contrast_tone': [
-            (0.5, random.uniform(-0.5, 0.5), random.uniform(-0.5, 0.5)),
-            (-0.5, random.uniform(-0.5, 0.5), random.uniform(-0.5, 0.5)),
-            (0.75, random.uniform(-0.5, 0.5), random.uniform(-0.5, 0.5)),
-            (-0.75, random.uniform(-0.5, 0.5), random.uniform(-0.5, 0.5))
+            (0.5, random.uniform(-0.4, 0.4), random.uniform(-0.3, 0.3)),
+            (-0.5, random.uniform(-0.4, 0.4), random.uniform(-0.3, 0.3)),
+            (0.75, random.uniform(-0.4, 0.4), random.uniform(-0.3, 0.3)),
+            (-0.75, random.uniform(-0.4, 0.4), random.uniform(-0.3, 0.3))
         ],
         'same_tone': [
             (random.uniform(0.1, 0.2), 0, 0), (random.uniform(0.2, 0.3), 0, 0),
