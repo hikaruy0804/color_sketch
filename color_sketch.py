@@ -23,7 +23,7 @@ def adjust_color_variation(hex_color, adjustments, used_colors):
         hue_adjust = adjustments[2] + random.uniform(-0.05, 0.05)
         new_color = generate_new_color(hex_color, lightness_adjust, saturation_adjust, hue_adjust)
         attempts += 1
-    used_colors.add(new_color)
+    new_color = generate_new_color(hex_color, lightness_adjust, saturation_adjust, hue_adjust, used_colors)
     return new_color
 
 def generate_new_color(hex_color, lightness_adjust, saturation_adjust, hue_adjust, used_colors):
