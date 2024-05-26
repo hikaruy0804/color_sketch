@@ -26,21 +26,29 @@ def generate_color_variations(hex_color):
             (random.uniform(-0.1, 0.1), random.uniform(-0.2, 0.2), random.uniform(-0.1, 0.1)) for _ in range(4)
         ],
         'lightness_variation': [
-            (0, 0, random.uniform(0.2, 0.4)), (0, 0, random.uniform(-0.4, -0.2)),
-            (0, 0, random.uniform(0.4, 0.6)), (0, 0, random.uniform(-0.6, -0.4)),
-            (0, 0, random.uniform(0.6, 0.8)), (0, 0, random.uniform(-0.8, -0.6))
+            (0, 0, 0.3), (0, 0, -0.3),
+            (0, 0, 0.6), (0, 0, -0.6)
         ],
         'saturation_variation': [
-            (0, random.uniform(0.2, 0.4), 0), (0, random.uniform(-0.4, -0.2), 0),
-            (0, random.uniform(0.4, 0.6), 0), (0, random.uniform(-0.6, -0.4), 0),
-            (0, random.uniform(0.6, 0.8), 0), (0, random.uniform(-0.8, -0.6), 0)
+            (0, 0.3, 0), (0, -0.3, 0),
+            (0, 0.6, 0), (0, -0.6, 0)
         ],
         'same_tone': [
-            (random.uniform(0.05, 0.1), 0, 0), (random.uniform(0.1, 0.15), 0, 0),
-            (random.uniform(0.15, 0.2), 0, 0), (random.uniform(0.2, 0.25), 0, 0)
+            (random.uniform(0.1, 0.2), 0, 0), (random.uniform(0.2, 0.3), 0, 0),
+            (random.uniform(0.3, 0.4), 0, 0), (random.uniform(0.4, 0.5), 0, 0)
         ]
     }
-    variations = {key: [generate_new_color(hex_color, *adjust) for adjust in adjustments[key]] for key in adjustments}
+    
+    variations = {}
+    for key, adjusts in adjustments.items():
+        colors = set()
+        for adjust in adjusts:
+            new_color = generate_new_color(hex_color, *adjust)
+            while new_color in colors:
+                adjust = (adjust[0], random.uniform(-0.3, 0.3), adjust[2]) if 'saturation' in key else (adjust[0], adjust[1], random.uniform(-0.3, 0.3))
+                new_color = generate_new_color(hex_color, *adjust)
+            colors.add(new_color)
+        variations[key] = list(colors)[:4]
     return variations
 
 def display_colors(title, colors):
