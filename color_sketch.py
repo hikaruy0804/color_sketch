@@ -26,17 +26,17 @@ def adjust_color_variation(hex_color, adjustments, used_colors):
     used_colors.add(new_color)
     return new_color
 
-def generate_new_color(hex_color, lightness_adjust, saturation_adjust, hue_adjust):
-    r, g, b = hex_to_rgb(hex_color)
-    h, s, v = rgb_to_hsv(r, g, b)
-    # 色相のランダムな調整を大きくして多様性を持たせる
-    h = (h + hue_adjust + random.uniform(-0.2, 0.2)) % 1.0
-    # 彩度を0.2以上保つことで灰色を避ける
-    s = max(0.2, min(1, s + saturation_adjust + random.uniform(-0.1, 0.1)))
-    # 明度の調整
-    v = max(0.1, min(0.9, v + lightness_adjust))
-    new_r, new_g, new_b = hsv_to_rgb(h, s, v)
-    return '#{:02x}{:02x}{:02x}'.format(new_r, new_g, new_b)
+def generate_new_color(hex_color, lightness_adjust, saturation_adjust, hue_adjust, used_colors):
+    new_color = hex_color
+    attempts = 0
+    while new_color in used_colors and attempts < 10:
+        h_adjust = hue_adjust + random.uniform(-0.15, 0.15)  # 色相の範囲を拡大
+        s_adjust = saturation_adjust + random.uniform(-0.1, 0.1)  # 彩度の調整範囲を拡大
+        l_adjust = lightness_adjust + random.uniform(-0.1, 0.1)  # 明度の調整範囲を拡大
+        new_color = adjust_color_variation(hex_color, l_adjust, s_adjust, h_adjust)
+        attempts += 1
+    used_colors.add(new_color)
+    return new_color
 
 def generate_color_variations(hex_color):
     used_colors = set([hex_color])  # 使用済みの色を保持
