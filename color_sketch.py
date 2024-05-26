@@ -8,27 +8,34 @@ def rgb_to_hsv(r, g, b):
     return colorsys.rgb_to_hsv(r/255.0, g/255.0, b/255.0)
 
 def hsv_to_rgb(h, s, v):
-    return [int(x * 255.0) for x in colorsys.hsv_to_rgb(h, s, v)]
+    return [int(x * 255) for x in colorsys.hsv_to_rgb(h, s, v)]
 
 def hex_to_rgb(hex_color):
     hex_color = hex_color.lstrip('#')
     return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
 
-def generate_new_color(hex_color, lightness_adjust, saturation_adjust, hue_adjust):
+def generate_new_color(hex_color, hue_adjust, saturation_adjust, lightness_adjust):
     r, g, b = hex_to_rgb(hex_color)
     h, s, v = rgb_to_hsv(r, g, b)
     h = (h + hue_adjust) % 1.0
     s = max(0, min(1, s + saturation_adjust))
     v = max(0, min(1, v + lightness_adjust))
-    return '#{:02x}{:02x}{:02x}'.format(*hsv_to_rgb(h, s, v))
+    return f'#{"".join(f"{int(x):02x}" for x in hsv_to_rgb(h, s, v))}'
 
-def generate_color_variations(hex_color):
-    adjustments = {
-        'similar_tone': [(0.05, 0.05, 0.01), (-0.05, -0.05, -0.01), (0.1, -0.05, 0.02), (-0.1, 0.05, -0.02)],
-        'contrast_tone': [(0.4, -0.4, 0.5), (-0.4, 0.4, -0.5), (0.6, 0.6, 0.3), (-0.6, -0.6, -0.3)],
-        'same_tone': [(0, 0.2, 0.1), (0, -0.2, -0.1), (0, 0.1, 0.2), (0, -0.1, -0.2)]
+def generate_color_variations(hex_color, num_variations=5):
+    variations = {
+        'similar_tone': [],
+        'contrast_tone': [],
+        'same_tone': []
     }
-    variations = {key: [generate_new_color(hex_color, *adjust) for adjust in adjustments[key]] for key in adjustments}
+    for i in range(num_variations):
+        hue_shift = random.uniform(-0.1, 0.1)
+        sat_shift = random.uniform(-0.2, 0.2)
+        val_shift = random.uniform(-0.2, 0.2)
+        variations['same_tone'].append(generate_new_color(hex_color, 0, sat_shift, val_shift))
+        variations['similar_tone'].append(generate_new_color(hex_color, hue_shift, sat_shift, val_shift))
+        variations['contrast_tone'].append(generate_new_color(hex_color, hue_shift + 0.5, -sat_shift, val_shift))
+
     return variations
 
 def display_colors(title, colors):
